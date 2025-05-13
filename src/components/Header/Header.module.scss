@@ -1,9 +1,8 @@
 @use "../../styles/mixins" as m;
+@use "../../styles/variables" as *;
+@use "../../styles/placeholders";
 
-.footerStyling {
+.headerStyling {
   @include m.flexBox(row, center, center, 0.5rem);
-  position: fixed;
-  bottom: 2%;
   width: 100%;
-  z-index: 99;
 }

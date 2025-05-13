@@ -4,13 +4,26 @@
 
 nav {
   background: $gray;
-  width: 80%;
+  width: 95%;
   border-radius: 12px;
+
   .navStyling {
     @include m.flexBox(row, center, center, 1.5rem);
     margin: 0;
     padding: 0;
     padding: 0.5rem 0rem;
+
+    .leftContainer,
+    .rightContainer {
+      @include m.flexBox(row, center, center, 1rem);
+
+      .iconStyling {
+        svg {
+          width: 6vw;
+          color: $white;
+        }
+      }
+    }
 
     li {
       list-style: none;
@@ -24,8 +37,9 @@ nav {
 
           svg {
             display: block;
-            width: 7vw;
+            width: 8vw;
             height: 60%;
+            color: $purple;
           }
 
           p {
