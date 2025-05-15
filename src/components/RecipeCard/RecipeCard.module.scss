@@ -5,11 +5,6 @@
 .cardStyling {
   @include m.flexBox(column, center, center, 0rem);
   color: $white;
-
-  &:last-of-type {
-    margin-bottom: 5rem;
-  }
-
   header {
     img {
       width: 78vw;

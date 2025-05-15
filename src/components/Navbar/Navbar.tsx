@@ -13,7 +13,7 @@ export const Navbar = () => {
         <ul className={`${s.navStyling}`}>
           <div className={s.leftContainer}>
             <li>
-              <NavLink to="/" end>
+              <NavLink to="/">
                 <span className={s.iconStyling}>
                   <Home />
                   <p>Home</p>
@@ -39,7 +39,7 @@ export const Navbar = () => {
           </li>
           <div className={s.rightContainer}>
             <li>
-              <NavLink to="/account">
+              <NavLink to="/profile">
                 <span className={s.iconStyling}>
                   <Profile />
                   <p>Profile</p>

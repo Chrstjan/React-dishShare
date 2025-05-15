@@ -9,6 +9,11 @@
     h2 {
       margin: 0;
     }
+
+    &.leftHeader {
+      align-self: flex-start;
+      padding-left: 1rem;
+    }
   }
 
   &.listingWrapper {
@@ -18,5 +23,6 @@
 
   &.cardWrapper {
     margin-bottom: 4rem;
+    position: relative;
   }
 }

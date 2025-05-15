@@ -14,7 +14,7 @@ export const RecipeCard = ({ data, type }: RecipeCardInterface) => {
             return (
               <figure
                 className={`${s.cardStyling} ${type ? s[type] : ""}`}
-                key={item.id}
+                key={item?.id}
               >
                 <header>
                   {item?.images?.length > 0}{" "}

@@ -7,7 +7,9 @@ interface UserContextInterface {
   logoutUser: () => void;
 }
 
-export const UserContext = createContext<UserContextInterface | null>(null);
+export const UserContext = createContext<UserContextInterface>(
+  {} as UserContextInterface
+);
 
 export const UserContextProvider = ({
   children,

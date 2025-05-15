@@ -3,6 +3,12 @@ import { MainLayout } from "./layouts/MainLayout";
 import { LandingPage } from "./pages/LandingPage";
 import { ProtectedLayout } from "./layouts/ProtectedLayout";
 import { PageNotFound } from "./pages/PageNotFound";
+import { DiscoverPage } from "./pages/DiscoverPage";
+import { RecipeDetailsPage } from "./pages/RecipeDetailsPage";
+import { ProfilePage } from "./pages/ProfilePage";
+import { FavoritesPage } from "./pages/FavoritesPage";
+import { CreatePage } from "./pages/CreatePage";
+import { LoginPage } from "./pages/LoginPage";
 
 export const Router = createBrowserRouter([
   {
@@ -13,6 +19,18 @@ export const Router = createBrowserRouter([
         Component: LandingPage,
       },
       {
+        path: "/discover",
+        Component: DiscoverPage,
+      },
+      {
+        path: "/recipe:/slug",
+        Component: RecipeDetailsPage,
+      },
+      {
+        path: "/login",
+        Component: LoginPage,
+      },
+      {
         path: "/*",
         Component: PageNotFound,
       },
@@ -20,6 +38,19 @@ export const Router = createBrowserRouter([
   },
   {
     Component: ProtectedLayout,
-    children: [],
+    children: [
+      {
+        path: "/profile",
+        Component: ProfilePage,
+      },
+      {
+        path: "/favorites",
+        Component: FavoritesPage,
+      },
+      {
+        path: "/create",
+        Component: CreatePage,
+      },
+    ],
   },
 ]);
