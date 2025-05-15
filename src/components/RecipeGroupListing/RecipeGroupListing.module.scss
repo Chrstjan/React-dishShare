@@ -1,0 +1,18 @@
+@use "../../styles/mixins" as m;
+@use "../../styles/variables" as *;
+@use "../../styles/placeholders";
+
+.listingContainer {
+  width: 100%;
+  overflow-x: auto;
+  .listingStyling {
+    @include m.flexBox(row, flex-start, center, 1rem);
+    margin-top: 0;
+    padding: 0;
+
+    li {
+      list-style-type: none;
+      padding-right: 1rem;
+    }
+  }
+}

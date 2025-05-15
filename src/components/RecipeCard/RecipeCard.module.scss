@@ -1,0 +1,44 @@
+@use "../../styles/mixins" as m;
+@use "../../styles/variables" as *;
+@use "../../styles/placeholders";
+
+.cardStyling {
+  @include m.flexBox(column, center, center, 0rem);
+  color: $white;
+
+  &:last-of-type {
+    margin-bottom: 5rem;
+  }
+
+  header {
+    img {
+      width: 78vw;
+      border-radius: 7px;
+      border: 2px solid #2a2c36;
+      border-bottom: 0;
+      display: block;
+    }
+  }
+
+  figcaption {
+    @include m.flexBox(column, center, center, 0.5rem);
+    border-radius: 7px;
+    border: 2px solid #2a2c36;
+    border-top: 0;
+    padding: 0rem 1rem;
+
+    header {
+      width: 100%;
+      text-align: center;
+      .timeStyling {
+        @include m.flexBox(row, center, center, 0.5rem);
+      }
+    }
+
+    .infoContainer {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      padding: 0rem 1rem;
+    }
+  }
+}

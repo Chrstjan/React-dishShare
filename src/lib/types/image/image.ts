@@ -1,4 +1,4 @@
-interface ImageInterface {
+export interface ImageInterface {
   description: string;
   filename: string;
   is_main: boolean;

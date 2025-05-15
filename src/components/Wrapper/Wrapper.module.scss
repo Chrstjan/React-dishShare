@@ -1,0 +1,22 @@
+@use "../../styles/mixins" as m;
+@use "../../styles/variables" as *;
+@use "../../styles/placeholders";
+
+.wrapperStyling {
+  @include m.flexBox(column, center, center);
+
+  .headerStyling {
+    h2 {
+      margin: 0;
+    }
+  }
+
+  &.listingWrapper {
+    @include m.flexBox(column, center, flex-start);
+    padding-left: 1rem;
+  }
+
+  &.cardWrapper {
+    margin-bottom: 4rem;
+  }
+}

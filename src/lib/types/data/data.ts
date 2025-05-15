@@ -1,6 +1,4 @@
-import type { RecipeInterface } from "../recipe/recipe";
-
-export interface RecipesDataInterface {
-  data: RecipeInterface[];
-  message: string;
+export interface DataInterface<T> {
+  data: T;
+  message?: string;
 }
