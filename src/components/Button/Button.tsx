@@ -1,7 +1,7 @@
 import s from "./Button.module.scss";
 
 interface ButtonInterface {
-  action: () => void;
+  action?: () => void;
   type?: string;
   text: string;
 }

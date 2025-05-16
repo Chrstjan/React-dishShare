@@ -9,6 +9,7 @@ import { ProfilePage } from "./pages/ProfilePage";
 import { FavoritesPage } from "./pages/FavoritesPage";
 import { CreatePage } from "./pages/CreatePage";
 import { LoginPage } from "./pages/LoginPage";
+import { DetailsLayout } from "./layouts/DetailsLayout";
 
 export const Router = createBrowserRouter([
   {
@@ -23,12 +24,21 @@ export const Router = createBrowserRouter([
         Component: DiscoverPage,
       },
       {
-        path: "/recipe:/slug",
-        Component: RecipeDetailsPage,
-      },
-      {
         path: "/login",
         Component: LoginPage,
+      },
+      {
+        path: "/*",
+        Component: PageNotFound,
+      },
+    ],
+  },
+  {
+    Component: DetailsLayout,
+    children: [
+      {
+        path: "/recipe/:slug",
+        Component: RecipeDetailsPage,
       },
       {
         path: "/*",

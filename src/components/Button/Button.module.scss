@@ -14,4 +14,13 @@
   &.bottomBtn {
     margin-bottom: 4rem;
   }
+
+  &.recipeIcon {
+    margin-left: 1rem;
+    background: $black;
+
+    &:last-of-type {
+      margin-right: 1rem;
+    }
+  }
 }

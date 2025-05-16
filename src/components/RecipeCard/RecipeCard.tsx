@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router";
 import type { RecipeInterface } from "../../lib/types/recipe/recipe";
 import s from "./RecipeCard.module.scss";
 
@@ -7,6 +8,12 @@ interface RecipeCardInterface {
 }
 
 export const RecipeCard = ({ data, type }: RecipeCardInterface) => {
+  const navigate = useNavigate();
+
+  const handleCardClick = async (slug: string) => {
+    navigate(`/recipe/${slug}`);
+  };
+
   return (
     <>
       {data && data?.length > 0
@@ -14,7 +21,8 @@ export const RecipeCard = ({ data, type }: RecipeCardInterface) => {
             return (
               <figure
                 className={`${s.cardStyling} ${type ? s[type] : ""}`}
-                key={item?.id}
+                key={item?.id || item?.slug}
+                onClick={() => handleCardClick(item?.slug)}
               >
                 <header>
                   {item?.images?.length > 0}{" "}

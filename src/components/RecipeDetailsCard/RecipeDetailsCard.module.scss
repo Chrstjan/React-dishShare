@@ -1,0 +1,106 @@
+@use "../../styles/mixins" as m;
+@use "../../styles/variables" as *;
+@use "../../styles/placeholders";
+
+.detailsStyling {
+  @include m.flexBox(column, center, center, 0rem);
+  color: $white;
+
+  header {
+    position: relative;
+
+    img {
+      width: 100vw;
+    }
+
+    .optionsConainer {
+      @include m.flexBox(row, space-between, center, 1rem);
+      width: 100%;
+      position: absolute;
+      top: 2%;
+    }
+  }
+
+  .detailsContainer {
+    @include m.flexBox(column, center, center, 1rem);
+    margin: 0rem 0.4rem;
+    margin-bottom: 7rem;
+    padding-bottom: 1rem;
+    border-radius: 7px;
+    border: 2px solid #2a2c36;
+
+    .creatorContainer {
+      align-self: flex-start;
+
+      span {
+        @include m.flexBox(row, flex-start, center, 0.5rem);
+        padding-left: 0.5rem;
+
+        h5 {
+          margin: 0;
+        }
+
+        img {
+          width: 9vw;
+          border-radius: 50%;
+        }
+      }
+    }
+
+    header {
+      width: 100%;
+      @include m.flexBox(row, space-evenly, center, 0.5rem);
+
+      h2 {
+        max-width: 240px;
+      }
+    }
+
+    p {
+      margin: 0;
+    }
+
+    .infoContainer {
+      width: 100%;
+      @include m.flexBox(row, space-evenly, center, 1rem);
+    }
+
+    .iconContainer {
+      @include m.flexBox(column, center, center, 0.5rem);
+
+      p:last-of-type {
+        color: $gray;
+      }
+    }
+
+    .descriptionStyling {
+      padding-left: 0.5rem;
+      color: $gray;
+    }
+
+    .listStyling {
+      .listHeader {
+        @include m.flexBox(row, center, center, 0rem);
+      }
+    }
+
+    .ingredStyling,
+    .instrucStyling {
+      @include m.flexBox(column, center, flex-start, 0.5rem);
+
+      li {
+        .ingredientContainer {
+          @include m.flexBox(row, center, center, 0.5rem);
+        }
+      }
+    }
+  }
+
+  .includesContainer {
+    width: 100%;
+    @include m.flexBox(column, center, space, 1rem);
+    .barStyling {
+      @include m.flexBox(row, center, center, 0.5rem);
+    }
+  }
+}
