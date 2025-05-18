@@ -1,0 +1,7 @@
+@use "../../styles/placeholders";
+
+.formStyling {
+  @extend %userFormStyling;
+  padding: 2rem 2rem 2rem 2rem;
+  gap: 2rem;
+}

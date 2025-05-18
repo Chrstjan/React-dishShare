@@ -29,6 +29,16 @@
     border-radius: 7px;
     border: 2px solid #2a2c36;
 
+    .tagsContainer {
+      @include m.flexBox(column, center, flex-start, 1rem);
+      width: 100%;
+      padding-left: 0.7rem;
+
+      .tagContainer {
+        @include m.flexBox(row, center, center, 0.7rem);
+      }
+    }
+
     .creatorContainer {
       align-self: flex-start;
 

@@ -51,10 +51,24 @@ export const RecipeDetailsCard = ({
             <p>Prep</p>
           </span>
         </header>
-        <section>
-          {data && data?.category ? (
-            <RecipeCardTag data={data?.difficulty} />
-          ) : null}
+        <section className={s.tagsContainer}>
+          <div className={s.tagContainer}>
+            {data && data?.category ? (
+              <RecipeCardTag data={data?.category} />
+            ) : null}
+          </div>
+          <div className={s.tagContainer}>
+            {data && data?.cuisine ? (
+              <RecipeCardTag data={data?.cuisine} />
+            ) : null}
+          </div>
+          <div className={s.tagContainer}>
+            {data && Array.isArray(data?.tags)
+              ? data?.tags?.map((item) => (
+                  <RecipeCardTag key={item?.tag?.slug} data={item?.tag} />
+                ))
+              : null}
+          </div>
         </section>
         <div className={s.creatorContainer}>
           <h4>Creator:</h4>

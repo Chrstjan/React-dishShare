@@ -1,0 +1,12 @@
+@use "../../styles/mixins" as m;
+@use "../../styles/variables" as *;
+@use "../../styles/placeholders";
+
+.recipeBarStyling {
+  display: inline-block;
+  background: #42434946;
+  border: 3px solid #2a2c36;
+  border-radius: 9px;
+  text-align: center;
+  padding: 0.5rem;
+}
