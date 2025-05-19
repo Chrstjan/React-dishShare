@@ -1,5 +1,8 @@
 import { type Dispatch, type SetStateAction } from "react";
 import { useForm, type FieldValues } from "react-hook-form";
+import { FormInput } from "../FormInput/FormInput";
+import { signUpValidation } from "../../lib/utils/auth/signUpValidation";
+import { signUp } from "../../lib/actions/auth/signUp";
 import s from "./SignUpForm.module.scss";
 
 export const SignUpForm = ({
@@ -16,22 +19,8 @@ export const SignUpForm = ({
   });
 
   const handleFormSubmit = async (data: FieldValues) => {
-    const { email, password, username } = { ...data };
-
-    const formData = {
-      email: email,
-      password: password,
-      username: username,
-    };
-
     try {
-      const res = await fetch("https://dishshare.up.railway.app/user", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+      const res = await signUp(data);
 
       if (!res.ok) {
         console.error(res);
@@ -52,67 +41,30 @@ export const SignUpForm = ({
 
   return (
     <form onSubmit={handleSubmit(handleFormSubmit)} className={s.formStyling}>
-      <span className={s.inputContainer}>
-        <label htmlFor="email">Email</label>
-        <input
-          {...register("email", {
-            required: "Email is required",
-            pattern: {
-              value:
-                /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
-              message: "Invalid email format",
-            },
-            minLength: {
-              value: 8,
-              message: "Email must be at least 8 characters long",
-            },
-          })}
-          type="email"
-          id="email"
-          name="email"
-        />
-      </span>
-      {errors.email ? <p>{errors?.email?.message as string}</p> : null}
-      <span className={s.inputContainer}>
-        <label htmlFor="password">Password</label>
-        <input
-          {...register("password", {
-            required: "Password is required",
-            pattern: {
-              value: /^[A-Za-z\d@$!%*?&]{5,}$/,
-              message: "Invalid password format",
-            },
-            minLength: {
-              value: 5,
-              message: "Password must be at least 5 characters",
-            },
-          })}
-          type="password"
-          id="password"
-          name="password"
-        />
-      </span>
-      {errors.password ? <p>{errors?.password?.message as string}</p> : null}
-      <span className={s.inputContainer}>
-        <label htmlFor="username">Username</label>
-        <input
-          {...register("username", {
-            required: "Username is required",
-            pattern: {
-              value: /^[A-Za-z\d@$!%*?&]{3,}$/,
-              message: "Invalid username format",
-            },
-            minLength: {
-              value: 3,
-              message: "Username must be at least 3 characters long",
-            },
-          })}
-          type="text"
-          id="username"
-          name="username"
-        />
-      </span>
-      {errors.username ? <p>{errors?.username?.message as string}</p> : null}
+      <FormInput
+        inputType="email"
+        register={register}
+        registerName="email"
+        inputValidation={signUpValidation[0]}
+        inputName="email"
+        error={errors?.email?.message as string}
+      />
+      <FormInput
+        inputType="password"
+        register={register}
+        registerName="password"
+        inputValidation={signUpValidation[1]}
+        inputName="password"
+        error={errors?.password?.message as string}
+      />
+      <FormInput
+        inputType="text"
+        register={register}
+        registerName="username"
+        inputValidation={signUpValidation[2]}
+        inputName="username"
+        error={errors?.username?.message as string}
+      />
       <span className={s.submitContainer}>
         <p>
           Already have an account?{" "}

@@ -1,7 +1,9 @@
 import { createBrowserRouter } from "react-router";
 import { MainLayout } from "./layouts/MainLayout";
-import { LandingPage } from "./pages/LandingPage";
+import { DetailsLayout } from "./layouts/DetailsLayout";
 import { ProtectedLayout } from "./layouts/ProtectedLayout";
+import { ProtectedDetailsLayout } from "./layouts/ProtectedDetailsLayout";
+import { LandingPage } from "./pages/LandingPage";
 import { PageNotFound } from "./pages/PageNotFound";
 import { DiscoverPage } from "./pages/DiscoverPage";
 import { RecipeDetailsPage } from "./pages/RecipeDetailsPage";
@@ -9,7 +11,6 @@ import { ProfilePage } from "./pages/ProfilePage";
 import { FavoritesPage } from "./pages/FavoritesPage";
 import { CreatePage } from "./pages/CreatePage";
 import { LoginPage } from "./pages/LoginPage";
-import { DetailsLayout } from "./layouts/DetailsLayout";
 
 export const Router = createBrowserRouter([
   {
@@ -58,8 +59,21 @@ export const Router = createBrowserRouter([
         Component: FavoritesPage,
       },
       {
+        path: "/*",
+        Component: PageNotFound,
+      },
+    ],
+  },
+  {
+    Component: ProtectedDetailsLayout,
+    children: [
+      {
         path: "/create",
         Component: CreatePage,
+      },
+      {
+        path: "/*",
+        Component: PageNotFound,
       },
     ],
   },
