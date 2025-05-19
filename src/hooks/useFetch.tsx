@@ -21,7 +21,7 @@ export const useFetch = <T = unknown,>(url: string) => {
       }
     },
     staleTime: 60000,
-    retry: 1,
+    retry: 3,
   });
 
   return { data, isLoading, error };

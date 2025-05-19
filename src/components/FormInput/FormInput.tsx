@@ -57,10 +57,7 @@ export const FormInput = ({
         <>
           <span className={s.inputContainers}>
             <label htmlFor={inputName}>{inputName}</label>
-            <select
-              {...register(registerName, inputValidation)}
-              name={inputName}
-            >
+            <select {...register(registerName, inputValidation)}>
               {defaultOption ? <option value="">{inputName}</option> : null}
               {options?.map((item) => (
                 <option key={item?.id} value={item?.id}>
@@ -80,7 +77,6 @@ export const FormInput = ({
         <input
           type={inputType}
           {...register(registerName, inputValidation)}
-          name={inputName}
           placeholder={inputPlaceholder || ""}
         />
       </span>

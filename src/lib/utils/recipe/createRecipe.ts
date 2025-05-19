@@ -1,4 +1,4 @@
-export const createRecipe = [
+export const createRecipeValidation = [
   {
     required: "Category is required",
     pattern: {

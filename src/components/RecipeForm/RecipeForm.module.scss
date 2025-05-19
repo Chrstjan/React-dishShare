@@ -1,0 +1,6 @@
+@use "../../styles/placeholders";
+
+.formStyling {
+  @extend %userFormStyling;
+  margin-bottom: 7rem;
+}
