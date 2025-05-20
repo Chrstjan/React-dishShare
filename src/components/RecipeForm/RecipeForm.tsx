@@ -1,13 +1,22 @@
+import type { ChosenImageInterface } from "../../lib/types/image/image";
 import { useContext, useState } from "react";
 import { UserContext } from "../../context/UserContext";
 import { useForm, type FieldValues } from "react-hook-form";
+import { RecipeImageSelect } from "../RecipeImageSelect/RecipeImageSelect";
 import { FormInput } from "../FormInput/FormInput";
 import { createRecipeRelations } from "../../lib/utils/recipe/createRecipe";
 import { CreateRecipe } from "../../lib/actions/recipe/createRecipe";
+import { createImageRel } from "../../lib/actions/recipe/createImageRel";
+import { createIngredient } from "../../lib/actions/recipe/createIngredient";
+import { createInstruction } from "../../lib/actions/recipe/createInstruction";
 import s from "./RecipeForm.module.scss";
 
 export const RecipeForm = () => {
   const { user } = useContext(UserContext);
+  const [showImagesGallery, setShowImagesGallery] = useState<boolean>(false);
+  const [selectedImage, setSelectedImage] = useState<
+    ChosenImageInterface | undefined
+  >();
   const [ingredientFields, setIngredientFields] = useState<string[]>([]);
   const [instructionFields, setInstructionFields] = useState<string[]>([]);
 
@@ -48,14 +57,85 @@ export const RecipeForm = () => {
       const recipeData = await res.json();
 
       if (recipeData && recipeData?.message == "201") {
-        console.log(recipeData);
-        if (recipeData?.data && recipeData?.data?.id) {
-          const recipeId = { ...recipeData?.data?.id };
-          console.log("Recipe bitch", recipeId);
+        const recipeId = { ...recipeData?.data?.id };
+        console.log("Recipe bitch", recipeId);
 
-          //Recipe ingredient / instructions post request here
+        if (selectedImage && selectedImage?.filename?.length > 0) {
+          try {
+            const res = await createImageRel(selectedImage?.id, recipeId, user);
 
-          //Recipe images post request here
+            if (!res.ok) {
+              console.error(res);
+            }
+
+            const imageData = await res.json();
+
+            if (imageData) {
+              console.log(imageData);
+            }
+          } catch (err: unknown | Error) {
+            if (err instanceof Error) {
+              console.error(
+                `Error in creating recipe image request: ${err.message}: ${err}`
+              );
+            }
+          }
+        }
+
+        if (
+          Array.isArray(data?.ingredients) &&
+          data?.ingredients?.length > 0 &&
+          recipeId
+        ) {
+          for (const ingredient of data?.ingredients) {
+            try {
+              const res = await createIngredient(ingredient, recipeId, user);
+
+              if (!res.ok) {
+                console.error(res);
+              }
+
+              const ingredientData = await res.json();
+
+              if (ingredientData) {
+                console.log(ingredientData);
+              }
+            } catch (err: unknown | Error) {
+              if (err instanceof Error) {
+                console.error(
+                  `Error in creating recipe ingredient request: ${err.message}: ${err}`
+                );
+              }
+            }
+          }
+        }
+
+        if (
+          Array.isArray(data?.instructions) &&
+          data?.instructions?.length > 0 &&
+          recipeId
+        ) {
+          for (const instruction of data?.instructions) {
+            try {
+              const res = await createInstruction(instruction, recipeId, user);
+
+              if (!res.ok) {
+                console.error(res);
+              }
+
+              const instructionData = await res.json();
+
+              if (instructionData) {
+                console.log(instructionData);
+              }
+            } catch (err: unknown | Error) {
+              if (err instanceof Error) {
+                console.error(
+                  `Error in creating recipe ingredient request: ${err.message}: ${err}`
+                );
+              }
+            }
+          }
         }
       }
     } catch (err: unknown | Error) {
@@ -69,6 +149,30 @@ export const RecipeForm = () => {
 
   return (
     <form onSubmit={handleSubmit(handleFormSubmit)} className={s.formStyling}>
+      <div className={s.imageContainer}>
+        {selectedImage == undefined ? (
+          <>
+            <header>
+              <h3>Add image</h3>
+            </header>
+            <span
+              onClick={() => setShowImagesGallery((prev) => !prev)}
+              className={s.image}
+            >
+              +
+            </span>
+          </>
+        ) : null}
+        {showImagesGallery && selectedImage == undefined ? (
+          <RecipeImageSelect setSelectedImage={setSelectedImage} />
+        ) : null}
+        {selectedImage && selectedImage?.filename.length > 0 ? (
+          <>
+            <img src={selectedImage?.filename} />
+            <span onClick={() => setSelectedImage(undefined)}>Remove</span>
+          </>
+        ) : null}
+      </div>
       <FormInput
         inputType="text"
         register={register}
@@ -115,7 +219,7 @@ export const RecipeForm = () => {
         inputName="cook time"
         error={errors?.cooktime?.message as string}
       />
-      <div className={s.ingredientsContainer}>
+      <div className={s.fieldsContainer}>
         {ingredientFields && ingredientFields?.length > 0
           ? ingredientFields?.map((index) => (
               <>
@@ -141,7 +245,7 @@ export const RecipeForm = () => {
           : null}
         <p onClick={() => addIngredientField()}>Add ingredient</p>
       </div>
-      <div className={s.ingredientsContainer}>
+      <div className={s.fieldsContainer}>
         {instructionFields && instructionFields?.length > 0
           ? instructionFields?.map((index) => (
               <>

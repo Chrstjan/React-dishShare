@@ -1,11 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 
-export const useFetch = <T = unknown,>(url: string) => {
+export const useFetch = <T = unknown,>(url: string, options = {}) => {
   const { data, isLoading, error } = useQuery<T, Error>({
-    queryKey: [url],
+    queryKey: [url, options],
     queryFn: async (): Promise<T> => {
       try {
-        const res = await fetch(url);
+        const res = await fetch(url, options);
 
         if (!res.ok) {
           throw new Error(`Error: ${res.status}: ${res.statusText}`);
