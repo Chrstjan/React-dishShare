@@ -13,12 +13,12 @@ export const listValidation = [
   {
     required: "Amount is required",
     pattern: {
-      value: /^[0-9]{1,}$/,
+      value: /^(?!0$)(?!0\.0+$)\d*(\.\d+)?$/,
       message: "Invalid amount format",
     },
     minLength: {
-      value: 1,
-      message: "Amount must be at least 1 character",
+      value: 0.1,
+      message: "Amount must be more than 0",
     },
   },
   {

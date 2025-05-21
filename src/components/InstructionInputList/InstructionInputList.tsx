@@ -28,7 +28,7 @@ export const InstructionInputList = ({
   return (
     <>
       <div className={s.fieldsContainer}>
-        <p>Instructions</p>
+        <h3>Instructions</h3>
         {fields?.map((item, index) => {
           return (
             <>

@@ -6,12 +6,16 @@ export const recipeFields = [
     validation: {
       required: "Name is required",
       pattern: {
-        value: /^[A-Za-z\d@$!%*?&]{5,}$/,
+        value: /^(?!.* {2,})[A-Za-z\d\s.,'!&()-]{5,50}$/,
         message: "Invalid name format",
       },
       minLength: {
         value: 5,
         message: "Name must be at least 5 characters",
+      },
+      maxLength: {
+        value: 50,
+        message: "Name must be at most 50 characters",
       },
     },
   },
@@ -22,12 +26,16 @@ export const recipeFields = [
     validation: {
       required: "Description is required",
       pattern: {
-        value: /^[A-Za-z\d@$!%*?&]{12,}$/,
+        value: /^(?!.* {2,})[A-Za-z\d\s.,'!&()-]{12,300}$/,
         message: "Invalid description format",
       },
       minLength: {
         value: 12,
         message: "Description must be at least 12 characters",
+      },
+      maxLength: {
+        value: 300,
+        message: "Description must be at most 300 characters",
       },
     },
   },
@@ -39,7 +47,7 @@ export const recipeFields = [
     validation: {
       required: "Category is required",
       pattern: {
-        value: /^[0-9]{1,}$/,
+        value: /^[1-9][0-9]*$/,
         message: "Invalid category format",
       },
       minLength: {
@@ -56,7 +64,7 @@ export const recipeFields = [
     validation: {
       required: "Cuisine is required",
       pattern: {
-        value: /^[0-9]{1,}$/,
+        value: /^[1-9][0-9]*$/,
         message: "Invalid cuisine format",
       },
       minLength: {
@@ -185,7 +193,7 @@ export const recipeFields = [
     validation: {
       required: "Difficulty is required",
       pattern: {
-        value: /^[0-9]{1,}$/,
+        value: /^[1-9][0-9]*$/,
         message: "Invalid difficulty format",
       },
       minLength: {

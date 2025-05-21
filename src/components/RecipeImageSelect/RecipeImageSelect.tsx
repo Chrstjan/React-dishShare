@@ -1,27 +1,29 @@
-import {
-  useContext,
-  useState,
-  type Dispatch,
-  type SetStateAction,
-} from "react";
+import { useFieldArray, type Control, type FieldValues } from "react-hook-form";
+import { useContext, type Dispatch, type SetStateAction } from "react";
 import { UserContext } from "../../context/UserContext";
 import { useFetch } from "../../hooks/useFetch";
 import type { DataInterface } from "../../lib/types/data/data";
 import type { UserDataInterface } from "../../lib/types/auth/user";
-import type {
-  ChosenImageInterface,
-  ImageInterface,
-} from "../../lib/types/image/image";
-import { Modal } from "../Modal/Modal";
+import type { ImageInterface } from "../../lib/types/image/image";
 import s from "./RecipeImageSelect.module.scss";
 
+type RecipeImageSelectType = {
+  control: Control<FieldValues>;
+  setImagePreview: Dispatch<SetStateAction<string>>;
+  setIsModalOpen: Dispatch<SetStateAction<boolean>>;
+};
+
 export const RecipeImageSelect = ({
-  setSelectedImage,
-}: {
-  setSelectedImage: Dispatch<SetStateAction<ChosenImageInterface | undefined>>;
-}) => {
+  control,
+  setImagePreview,
+  setIsModalOpen,
+}: RecipeImageSelectType) => {
   const { user } = useContext(UserContext);
-  const [showModal, setShowModal] = useState<boolean>(false);
+
+  const { append } = useFieldArray({
+    control,
+    name: "image",
+  });
 
   const { data, isLoading, error } = useFetch<DataInterface<UserDataInterface>>(
     "https://dishshare.up.railway.app/user",
@@ -33,16 +35,18 @@ export const RecipeImageSelect = ({
   );
 
   const handleImageSelect = (image: ImageInterface) => {
-    let chosenImage;
-    const { id, filename } = { ...image };
-    chosenImage = { id, filename };
-    setSelectedImage(chosenImage);
+    console.log(image);
+    append({ image_id: image?.id, filename: image?.filename });
+    setImagePreview(
+      image && image?.filename?.length > 0 ? image?.filename : ""
+    );
+    setIsModalOpen((prev) => !prev);
   };
 
   return (
     <>
       <span className={s.imagesContainer}>
-        {data && data?.data?.images && !isLoading && !error ? (
+        {data && data?.data && data?.data?.images && !isLoading && !error ? (
           data?.data?.images?.map((item: ImageInterface) => {
             return (
               <img
@@ -57,20 +61,9 @@ export const RecipeImageSelect = ({
         ) : (
           <>
             <p>No images found</p>
-            <p onClick={() => setShowModal((prev) => !prev)}>Upload image</p>
           </>
         )}
       </span>
-      {showModal ? (
-        <Modal>
-          <span
-            className={s.closeBtn}
-            onClick={() => setShowModal((prev) => !prev)}
-          >
-            X
-          </span>
-        </Modal>
-      ) : null}
     </>
   );
 };

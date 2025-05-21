@@ -1,7 +1,8 @@
-import type { ChosenImageInterface } from "../../lib/types/image/image";
 import { useState } from "react";
 import { useForm, type FieldValues } from "react-hook-form";
+import { Modal } from "../Modal/Modal";
 import { RecipeImageSelect } from "../RecipeImageSelect/RecipeImageSelect";
+import { ImagePreview } from "../ImagePreview/ImagePreview";
 import { recipeFields } from "../../lib/utils/recipe/createRecipe";
 import { FormInput } from "../FormInput/FormInput";
 import { IngredientInputList } from "../IngredientInputList/IngredientInputList";
@@ -19,11 +20,6 @@ export const RecipeForm = ({
   submitType,
   message,
 }: RecipeFormType) => {
-  const [showImagesGallery, setShowImagesGallery] = useState<boolean>(false);
-  const [selectedImage, setSelectedImage] = useState<
-    ChosenImageInterface | undefined
-  >();
-
   const {
     register,
     handleSubmit,
@@ -36,32 +32,30 @@ export const RecipeForm = ({
     defaultValues: defaultValues,
   });
 
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [imagePreview, setImagePreview] = useState<string>("");
+
   return (
     <form onSubmit={handleSubmit(submitType)} className={s.formStyling}>
-      <div className={s.imageContainer}>
-        {selectedImage == undefined ? (
-          <>
-            <header>
-              <h3>Add image</h3>
-            </header>
-            <span
-              onClick={() => setShowImagesGallery((prev) => !prev)}
-              className={s.image}
-            >
-              +
-            </span>
-          </>
-        ) : null}
-        {showImagesGallery && selectedImage == undefined ? (
-          <RecipeImageSelect setSelectedImage={setSelectedImage} />
-        ) : null}
-        {selectedImage && selectedImage?.filename.length > 0 ? (
-          <>
-            <img src={selectedImage?.filename} />
-            <span onClick={() => setSelectedImage(undefined)}>Remove</span>
-          </>
-        ) : null}
-      </div>
+      {!defaultValues && imagePreview?.length < 1 ? (
+        <span onClick={() => setIsModalOpen((prev) => !prev)}>Add Image</span>
+      ) : null}
+      {isModalOpen ? (
+        <Modal setIsModalOpen={setIsModalOpen}>
+          <RecipeImageSelect
+            control={control}
+            setImagePreview={setImagePreview}
+            setIsModalOpen={setIsModalOpen}
+          />
+        </Modal>
+      ) : null}
+      {defaultValues || imagePreview?.length > 0 ? (
+        <ImagePreview image={imagePreview || ""} />
+      ) : null}
+      {defaultValues || imagePreview?.length > 0 ? (
+        <span onClick={() => setImagePreview("")}>Remove Image</span>
+      ) : null}
+
       {recipeFields?.slice(0, 6)?.map((item) => {
         return (
           <FormInput

@@ -16,15 +16,18 @@ export const submitRecipe = async (
     throw new Error("Failed to create recipe");
   }
 
-  const recipeId = recipeData?.data?.id;
+  if (recipeData && recipeData?.data) {
+    const recipeId = recipeData?.data?.id;
 
-  if (data?.image?.id) {
-    await createImageRel(data?.image?.id, recipeId, user);
+    if (Array.isArray(data?.image) && recipeId) {
+      await createImageRel(data?.image[0]?.image_id, recipeId, user);
+    }
+
     for (const item of data?.ingredients || [])
       await createIngredient(item, recipeId, user);
     for (const item of data?.instructions || [])
       await createInstruction(item, recipeId, user);
-  }
 
-  return recipeData?.data;
+    return recipeData?.data;
+  }
 };

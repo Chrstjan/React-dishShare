@@ -28,7 +28,7 @@ export const IngredientInputList = ({
   return (
     <>
       <div className={s.fieldsContainer}>
-        <p>Ingredients</p>
+        <h3>Ingredients</h3>
         {fields?.map((item, index) => {
           return (
             <>
