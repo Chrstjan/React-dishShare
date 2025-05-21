@@ -6,7 +6,7 @@ export const createImageRel = async (
   user: UserInterface | null
 ) => {
   const formData = {
-    image_rel: imageId,
+    image_id: imageId,
     recipe_id: recipeId,
   };
 
