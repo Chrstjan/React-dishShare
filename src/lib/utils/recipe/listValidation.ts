@@ -13,7 +13,7 @@ export const listValidation = [
   {
     required: "Amount is required",
     pattern: {
-      value: /^(?!0$)(?!0\.0+$)\d*(\.\d+)?$/,
+      value: /^[A-Za-z\d@$!%*?&]{3,}$/,
       message: "Invalid amount format",
     },
     minLength: {
@@ -24,7 +24,7 @@ export const listValidation = [
   {
     required: "Step is required",
     pattern: {
-      value: /^[A-Za-z\d@$!%*?&]{5,}$/,
+      value: /^[A-Za-z0-9\d@$!%*?&]{5,}$/,
       message: "Invalid step format",
     },
     minLength: {

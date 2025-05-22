@@ -1,55 +1,90 @@
-import { useNavigate } from "react-router";
 import type { RecipeInterface } from "../../lib/types/recipe/recipe";
+import { useContext, useEffect, useState } from "react";
+import { UserContext } from "../../context/UserContext";
+import { Link, useNavigate } from "react-router";
 import s from "./RecipeCard.module.scss";
-
+import { deleteRecipe } from "../../lib/actions/recipe/deleteRecipe";
 interface RecipeCardInterface {
   data: RecipeInterface[];
   type?: string;
+  canEdit?: boolean;
 }
 
-export const RecipeCard = ({ data, type }: RecipeCardInterface) => {
+export const RecipeCard = ({ data, type, canEdit }: RecipeCardInterface) => {
+  const { user } = useContext(UserContext);
+  const [recipes, setRecipes] = useState<RecipeInterface[]>([]);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (data && data?.length > 0) {
+      setRecipes(data);
+    }
+  }, [data]);
 
   const handleCardClick = async (slug: string) => {
     navigate(`/recipe/${slug}`);
   };
 
+  const handleDeleteRecipe = async (id: number) => {
+    if (id) {
+      const res = await deleteRecipe(id, user);
+
+      const data = await res.json();
+
+      if (data?.message == "Success") {
+        setRecipes((prev) => [...prev.filter((item) => item.id !== id)]);
+      }
+    }
+  };
+
   return (
     <>
-      {data && data?.length > 0
-        ? data?.map((item: RecipeInterface) => {
+      {recipes && recipes?.length > 0
+        ? recipes?.map((item: RecipeInterface) => {
             return (
-              <figure
-                className={`${s.cardStyling} ${type ? s[type] : ""}`}
-                key={item?.id || item?.slug}
-                onClick={() => handleCardClick(item?.slug)}
-              >
-                <header>
-                  {item?.images?.length > 0}{" "}
-                  {
-                    <img
-                      src={item?.images[0]?.image?.filename}
-                      alt={item?.name}
-                    />
-                  }
-                </header>
-                <figcaption>
+              <>
+                <figure
+                  className={`${s.cardStyling} ${type ? s[type] : ""}`}
+                  key={item?.id || item?.slug}
+                  onClick={() => handleCardClick(item?.slug)}
+                >
                   <header>
-                    <h3>{item?.name}</h3>
-                    <span className={s.timeStyling}>
-                      <p>Prep: {item?.prep_time} min</p>
-                      <p>Cook: {item?.cook_time} min</p>
-                    </span>
+                    {item?.images?.length > 0}{" "}
+                    {
+                      <img
+                        src={item?.images[0]?.image?.filename}
+                        alt={item?.name}
+                      />
+                    }
                   </header>
-                  <h4>{item?.description?.slice(0, 30)}...</h4>
-                  <div className={s.infoContainer}>
-                    <p>Servings: {item?.servings}</p>
-                    <p>Protein: {item?.protein} g</p>
-                    <p>Carbs: {item?.carbs} g</p>
-                    <p>Calories: {item?.calories} kcal</p>
-                  </div>
-                </figcaption>
-              </figure>
+                  <figcaption>
+                    <header>
+                      <h3>{item?.name}</h3>
+                      <span className={s.timeStyling}>
+                        <p>Prep: {item?.prep_time} min</p>
+                        <p>Cook: {item?.cook_time} min</p>
+                      </span>
+                    </header>
+                    <h4>{item?.description?.slice(0, 30)}...</h4>
+                    <div className={s.infoContainer}>
+                      <p>Servings: {item?.servings}</p>
+                      <p>Protein: {item?.protein} g</p>
+                      <p>Carbs: {item?.carbs} g</p>
+                      <p>Calories: {item?.calories} kcal</p>
+                    </div>
+                  </figcaption>
+                </figure>
+                {canEdit ? (
+                  <span className={s.editContainer}>
+                    <p onClick={() => handleDeleteRecipe(item?.id)}>
+                      Delete Recipe
+                    </p>
+                    <Link to={`/edit/${item?.slug}`}>
+                      <p>Edit Recipe</p>
+                    </Link>
+                  </span>
+                ) : null}
+              </>
             );
           })
         : null}

@@ -1,5 +1,9 @@
 import { useEffect, useState } from "react";
-import { useForm, type RegisterOptions } from "react-hook-form";
+import {
+  useForm,
+  type FieldValues,
+  type RegisterOptions,
+} from "react-hook-form";
 import { useFetch } from "../../hooks/useFetch";
 import s from "./FormInput.module.scss";
 
@@ -18,6 +22,7 @@ interface FormInputInterface {
   inputPlaceholder?: string;
   error?: string;
   defaultOption?: boolean;
+  defaultValues?: FieldValues;
   endpoint?: string;
 }
 
@@ -30,6 +35,7 @@ export const FormInput = ({
   inputPlaceholder,
   error,
   defaultOption,
+  defaultValues,
   endpoint,
 }: FormInputInterface) => {
   const [options, setOptions] = useState<OptionTypeInterface[]>([]);
@@ -58,12 +64,18 @@ export const FormInput = ({
           <span className={s.inputContainers}>
             <label htmlFor={inputName}>{inputName}</label>
             <select {...register(registerName, inputValidation)}>
-              {defaultOption ? <option value="">{inputName}</option> : null}
-              {options?.map((item) => (
-                <option key={item?.id} value={item?.id}>
-                  {item?.name}
+              {defaultOption && defaultValues ? (
+                <option value={defaultValues?.[registerName]?.id}>
+                  {defaultValues?.[registerName]?.name}
                 </option>
-              ))}
+              ) : null}
+              {options?.map((item) => {
+                return (
+                  <option key={item?.id} value={item?.id}>
+                    {item?.name}
+                  </option>
+                );
+              })}
             </select>
           </span>
           {error && <p>{error}</p>}
@@ -77,6 +89,7 @@ export const FormInput = ({
         <input
           type={inputType}
           {...register(registerName, inputValidation)}
+          defaultValue={defaultValues?.[registerName]}
           placeholder={inputPlaceholder || ""}
         />
       </span>

@@ -35,5 +35,18 @@
       grid-template-columns: repeat(2, 1fr);
       padding: 0rem 1rem;
     }
+
+    .editContainer {
+      @include m.flexBox(row, flex-end, center, 1rem);
+      margin-bottom: -2rem;
+      p {
+        margin: 0;
+        color: $cyan;
+
+        &:first-of-type {
+          color: $orange;
+        }
+      }
+    }
   }
 }

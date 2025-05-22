@@ -75,7 +75,7 @@ export const recipeFields = [
   },
   {
     inputType: "number",
-    registerName: "preptime",
+    registerName: "prep_time",
     inputName: "prep time",
     validation: {
       required: "Prep time is required",
@@ -91,7 +91,7 @@ export const recipeFields = [
   },
   {
     inputType: "number",
-    registerName: "cooktime",
+    registerName: "cook_time",
     inputName: "cook time",
     validation: {
       required: "Cook time is required",

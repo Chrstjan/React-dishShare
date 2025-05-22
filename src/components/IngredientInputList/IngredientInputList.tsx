@@ -43,7 +43,7 @@ export const IngredientInputList = ({
               />
               <FormInput
                 key={index || item?.id}
-                inputType="number"
+                inputType="text"
                 register={register}
                 registerName={`ingredients.${index}.amount`}
                 inputName="ingredient amount"

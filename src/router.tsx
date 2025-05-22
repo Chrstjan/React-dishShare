@@ -11,6 +11,7 @@ import { ProfilePage } from "./pages/ProfilePage";
 import { FavoritesPage } from "./pages/FavoritesPage";
 import { CreatePage } from "./pages/CreatePage";
 import { LoginPage } from "./pages/LoginPage";
+import { EditPage } from "./pages/EditPage";
 
 export const Router = createBrowserRouter([
   {
@@ -70,6 +71,10 @@ export const Router = createBrowserRouter([
       {
         path: "/create",
         Component: CreatePage,
+      },
+      {
+        path: "/edit/:recipeSlug",
+        Component: EditPage,
       },
       {
         path: "/*",

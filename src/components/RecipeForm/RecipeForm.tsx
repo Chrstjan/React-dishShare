@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm, type FieldValues } from "react-hook-form";
 import { Modal } from "../Modal/Modal";
 import { RecipeImageSelect } from "../RecipeImageSelect/RecipeImageSelect";
@@ -23,8 +23,6 @@ export const RecipeForm = ({
   const {
     register,
     handleSubmit,
-    watch,
-    setValue,
     control,
     formState: { errors },
   } = useForm({
@@ -35,9 +33,15 @@ export const RecipeForm = ({
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [imagePreview, setImagePreview] = useState<string>("");
 
+  useEffect(() => {
+    if (defaultValues && defaultValues?.images?.length > 0) {
+      setImagePreview(defaultValues?.images[0]?.image?.filename);
+    }
+  }, [defaultValues]);
+
   return (
     <form onSubmit={handleSubmit(submitType)} className={s.formStyling}>
-      {!defaultValues && imagePreview?.length < 1 ? (
+      {imagePreview?.length < 1 ? (
         <span onClick={() => setIsModalOpen((prev) => !prev)}>Add Image</span>
       ) : null}
       {isModalOpen ? (
@@ -49,11 +53,11 @@ export const RecipeForm = ({
           />
         </Modal>
       ) : null}
-      {defaultValues || imagePreview?.length > 0 ? (
-        <ImagePreview image={imagePreview || ""} />
-      ) : null}
-      {defaultValues || imagePreview?.length > 0 ? (
-        <span onClick={() => setImagePreview("")}>Remove Image</span>
+      {imagePreview?.length > 0 ? (
+        <>
+          <ImagePreview image={imagePreview} />
+          <span onClick={() => setImagePreview("")}>Remove Image</span>
+        </>
       ) : null}
 
       {recipeFields?.slice(0, 6)?.map((item) => {
@@ -66,6 +70,8 @@ export const RecipeForm = ({
             inputValidation={item?.validation}
             error={errors[item?.registerName]?.message as string}
             endpoint={item?.endpoint ? item?.endpoint : ""}
+            defaultOption
+            defaultValues={defaultValues}
           />
         );
       })}
@@ -89,6 +95,8 @@ export const RecipeForm = ({
             inputValidation={item?.validation}
             error={errors[item?.registerName]?.message as string}
             endpoint={item?.endpoint ? item?.endpoint : ""}
+            defaultOption
+            defaultValues={defaultValues}
           />
         );
       })}
