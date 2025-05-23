@@ -1,4 +1,4 @@
-import type { UserInterface } from "../../types/auth/user";
+import type { UserInterface } from "../../../types/auth/user";
 
 export const createIngredient = async (
   ingredient: { name: string; amount: string },

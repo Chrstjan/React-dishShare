@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { UserContext } from "../context/UserContext";
 import { useNavigate } from "react-router";
 import { useFetch } from "../hooks/useFetch";
 import type { DataInterface } from "../lib/types/data/data";
@@ -8,8 +9,10 @@ import { Wrapper } from "../components/Wrapper/Wrapper";
 import { RecipeGroupListing } from "../components/RecipeGroupListing/RecipeGroupListing";
 import { RecipeCard } from "../components/RecipeCard/RecipeCard";
 import { Button } from "../components/Button/Button";
+import { FeaturedUserRecipe } from "../components/FeaturedUserRecipe/FeaturedUserRecipe";
 
 export const LandingPage = () => {
+  const { user } = useContext(UserContext);
   const {
     data: categoryData,
     isLoading: categoryLoading,
@@ -48,6 +51,15 @@ export const LandingPage = () => {
 
   return (
     <>
+      {user && user?.user ? (
+        <Wrapper
+          sectionHeader
+          headerText="Your latest recipe:"
+          headerType="leftHeader"
+        >
+          <FeaturedUserRecipe user={user} />
+        </Wrapper>
+      ) : null}
       <Wrapper type="listingWrapper" sectionHeader headerText="Meal Category">
         {categoryData &&
         categoryData?.data?.length > 0 &&

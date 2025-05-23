@@ -23,6 +23,7 @@
 
   .detailsContainer {
     @include m.flexBox(column, center, center, 1rem);
+    min-width: 94%;
     margin: 0rem 0.4rem;
     margin-bottom: 7rem;
     padding-bottom: 1rem;

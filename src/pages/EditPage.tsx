@@ -6,7 +6,7 @@ import { useParams } from "react-router";
 import { useFetch } from "../hooks/useFetch";
 import type { DataInterface } from "../lib/types/data/data";
 import type { RecipeDetailsInterface } from "../lib/types/recipe/recipe";
-import { updateRecipe } from "../lib/actions/recipe/updateRecipe";
+import { submitRecipeUpdate } from "../lib/service/updateRecipeService";
 
 export const EditPage = () => {
   const { user } = useContext(UserContext);
@@ -28,7 +28,7 @@ export const EditPage = () => {
           <RecipeForm
             defaultValues={recipeData?.data}
             submitType={(data) =>
-              updateRecipe(data, recipeData?.data?.id, user)
+              submitRecipeUpdate(data, recipeData?.data?.id, user)
             }
             message="Edit"
           />

@@ -33,7 +33,7 @@ export const updateRecipe = async (
     carbs: carbs,
     fat: fat,
     protein: protein,
-    difficulty_id: difficulty.id,
+    difficulty_id: difficulty | difficulty.id,
     rating: 0,
   };
 

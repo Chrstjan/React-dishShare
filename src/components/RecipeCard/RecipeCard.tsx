@@ -61,16 +61,24 @@ export const RecipeCard = ({ data, type, canEdit }: RecipeCardInterface) => {
                     <header>
                       <h3>{item?.name}</h3>
                       <span className={s.timeStyling}>
-                        <p>Prep: {item?.prep_time} min</p>
-                        <p>Cook: {item?.cook_time} min</p>
+                        {item?.prep_time ? (
+                          <p>Prep: {item?.prep_time} min</p>
+                        ) : null}
+                        {item?.cook_time ? (
+                          <p>Prep: {item?.cook_time} min</p>
+                        ) : null}
                       </span>
                     </header>
                     <h4>{item?.description?.slice(0, 30)}...</h4>
                     <div className={s.infoContainer}>
-                      <p>Servings: {item?.servings}</p>
-                      <p>Protein: {item?.protein} g</p>
-                      <p>Carbs: {item?.carbs} g</p>
-                      <p>Calories: {item?.calories} kcal</p>
+                      {item?.servings ? (
+                        <p>Servings: {item?.servings}</p>
+                      ) : null}
+                      {item?.protein ? <p>Protein: {item?.protein} g</p> : null}
+                      {item?.carbs ? <p>Carbs: {item?.carbs} g</p> : null}
+                      {item?.calories ? (
+                        <p>Calories: {item?.calories} kcal</p>
+                      ) : null}
                     </div>
                   </figcaption>
                 </figure>

@@ -1,9 +1,9 @@
 import type { FieldValues } from "react-hook-form";
 import type { UserInterface } from "../types/auth/user";
 import { CreateRecipe } from "../actions/recipe/createRecipe";
-import { createImageRel } from "../actions/recipe/createImageRel";
-import { createIngredient } from "../actions/recipe/createIngredient";
-import { createInstruction } from "../actions/recipe/createInstruction";
+import { createImageRel } from "../actions/recipe/imageRel/createImageRel";
+import { createIngredient } from "../actions/recipe/ingredient/createIngredient";
+import { createInstruction } from "../actions/recipe/instruction/createInstruction";
 
 export const submitRecipe = async (
   data: FieldValues,

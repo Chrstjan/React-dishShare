@@ -1,16 +1,16 @@
-import type { UserInterface } from "../../types/auth/user";
+import type { UserInterface } from "../../../types/auth/user";
 
-export const createInstruction = async (
-  instruction: { step: string },
+export const createImageRel = async (
+  imageId: number,
   recipeId: number,
   user: UserInterface | null
 ) => {
   const formData = {
+    image_id: imageId,
     recipe_id: recipeId,
-    step: instruction.step,
   };
 
-  const resp = await fetch(`${import.meta.env.VITE_API_URL}/instruction`, {
+  const resp = await fetch(`${import.meta.env.VITE_API_URL}/recipe-images`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

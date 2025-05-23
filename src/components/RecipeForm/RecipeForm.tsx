@@ -79,11 +79,15 @@ export const RecipeForm = ({
         control={control}
         register={register}
         errors={errors}
+        updateForm={defaultValues ? true : false}
+        defaultValues={defaultValues}
       />
       <InstructionInputList
         control={control}
         register={register}
         errors={errors}
+        updateForm={defaultValues ? true : false}
+        defaultValues={defaultValues}
       />
       {recipeFields?.slice(6, 12)?.map((item) => {
         return (

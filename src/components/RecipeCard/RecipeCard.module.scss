@@ -21,6 +21,7 @@
     border: 2px solid #2a2c36;
     border-top: 0;
     padding: 0rem 1rem;
+    min-width: 88%;
 
     header {
       width: 100%;
@@ -35,18 +36,23 @@
       grid-template-columns: repeat(2, 1fr);
       padding: 0rem 1rem;
     }
+  }
+}
 
-    .editContainer {
-      @include m.flexBox(row, flex-end, center, 1rem);
-      margin-bottom: -2rem;
-      p {
-        margin: 0;
-        color: $cyan;
+.editContainer {
+  @include m.flexBox(row, flex-end, center, 1rem);
+  margin-top: -2rem;
 
-        &:first-of-type {
-          color: $orange;
-        }
-      }
+  a {
+    color: $cyan;
+    text-decoration: none;
+
+    p {
+      color: $purple;
     }
+  }
+  p {
+    margin: 0;
+    color: $orange;
   }
 }
