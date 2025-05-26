@@ -5,7 +5,14 @@
 .commentContainer {
   @include m.flexBox(column, center, center, 1rem);
   width: 100%;
+
+  a {
+    width: 100%;
+    text-decoration: none;
+    margin-left: 3rem;
+  }
   .commentStyling {
+    color: $white;
     padding-left: 1rem;
     backdrop-filter: blur(12px);
     border: 1px solid #ffffff6c;

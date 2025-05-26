@@ -27,17 +27,21 @@ export const FeaturedUserRecipe = ({ user }: { user: UserInterface }) => {
   }, [data]);
 
   return (
-    <Link className={s.featuredCard} to={`/recipe/${recipe?.slug}`}>
-      <figure className={s.featuredCardStyling}>
-        <header>
-          <img src={recipe?.images[0]?.image?.filename} />
-        </header>
-        <figcaption className={s.infoContainer}>
-          <h3>Menu for {recipe?.category?.slug}</h3>
-          <h2>{recipe?.name}</h2>
-          <p>{recipe?.description?.slice(0, 10)}...</p>
-        </figcaption>
-      </figure>
-    </Link>
+    <>
+      {recipe && recipe?.name?.length > 0 ? (
+        <Link className={s.featuredCard} to={`/recipe/${recipe?.slug}`}>
+          <figure className={s.featuredCardStyling}>
+            <header>
+              <img src={recipe?.images[0]?.image?.filename} />
+            </header>
+            <figcaption className={s.infoContainer}>
+              <h3>Menu for {recipe?.category?.slug}</h3>
+              <h2>{recipe?.name}</h2>
+              <p>{recipe?.description?.slice(0, 10)}...</p>
+            </figcaption>
+          </figure>
+        </Link>
+      ) : null}
+    </>
   );
 };

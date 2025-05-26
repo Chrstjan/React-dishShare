@@ -80,12 +80,15 @@ export const ProfilePage = () => {
       >
         {userdata && userdata?.data && userComments && userComments?.length > 0
           ? userComments?.map((item: UserCommentsInterface) => {
+              console.log(item);
+
               return (
                 <>
                   <RecipeCard data={[item?.recipe]} type="commentCard" />
                   <RecipeComment
                     data={item?.comments}
                     userId={user?.user?.id}
+                    recipeSlug={item?.recipe?.slug}
                   />
                 </>
               );

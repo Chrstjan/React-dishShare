@@ -9,6 +9,7 @@ import type {
 import { Button } from "../Button/Button";
 import s from "./RecipeDetailsCard.module.scss";
 import { RecipeCardTag } from "../RecipeCardTag/RecipeCardTag";
+import { createFavorite } from "../../lib/actions/auth/favorite/createFavorite";
 
 interface RecipeDetailsCardInterface {
   data: RecipeDetailsInterface;
@@ -22,8 +23,12 @@ export const RecipeDetailsCard = ({
   const { user } = useContext(UserContext);
   const [showIngredients, setShowIngredients] = useState<boolean>(true);
 
-  const handleFavoriteRecipe = () => {
-    console.log("Recipe favorite");
+  const handleFavoriteRecipe = async (id: number) => {
+    if (id) {
+      const res = await createFavorite(id, user);
+
+      console.log(res);
+    }
   };
 
   return (
@@ -40,7 +45,7 @@ export const RecipeDetailsCard = ({
           user?.user?.id !== data?.creator?.id ? (
             <Button
               text="Favorite"
-              action={() => handleFavoriteRecipe()}
+              action={() => handleFavoriteRecipe(data?.id)}
               type="recipeIcon"
             />
           ) : null}

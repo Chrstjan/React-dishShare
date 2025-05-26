@@ -16,5 +16,6 @@ export const login = async (data: FieldValues) => {
     body: JSON.stringify(formData),
   });
 
-  return resp;
+  const userData = await resp.json();
+  return userData;
 };

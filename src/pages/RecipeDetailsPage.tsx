@@ -31,13 +31,7 @@ export const RecipeDetailsPage = () => {
       </Wrapper>
       <Wrapper
         sectionHeader
-        headerText={
-          recipeData &&
-          recipeData?.data &&
-          recipeData?.data?.comments?.length > 0
-            ? "Comments:"
-            : ""
-        }
+        headerText={recipeData && recipeData?.data ? "Comments:" : ""}
         type="userRecipes"
       >
         {user && user?.access_token && recipeData && recipeData?.data ? (

@@ -52,11 +52,7 @@ export const LandingPage = () => {
   return (
     <>
       {user && user?.user ? (
-        <Wrapper
-          sectionHeader
-          headerText="Your latest recipe:"
-          headerType="leftHeader"
-        >
+        <Wrapper>
           <FeaturedUserRecipe user={user} />
         </Wrapper>
       ) : null}

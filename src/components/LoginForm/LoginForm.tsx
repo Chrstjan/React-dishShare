@@ -27,14 +27,8 @@ export const LoginForm = ({
     try {
       const res = await login(data);
 
-      if (!res.ok) {
-        throw new Error("Error in login with credentials");
-      }
-
-      const userData = await res.json();
-
-      if (userData?.access_token && userData?.access_token?.length > 0) {
-        loginUser(userData);
+      if (res?.access_token && res?.access_token?.length > 0) {
+        loginUser(res);
         navigate("/profile");
       }
     } catch (err: unknown | Error) {
@@ -45,31 +39,33 @@ export const LoginForm = ({
   };
 
   return (
-    <form onSubmit={handleSubmit(handleFormSubmit)} className={s.formStyling}>
-      <FormInput
-        inputType="email"
-        register={register}
-        registerName="username"
-        inputValidation={loginValidation[0]}
-        inputName="username"
-        error={errors?.username?.message as string}
-      />
-      <FormInput
-        inputType="password"
-        register={register}
-        registerName="password"
-        inputValidation={loginValidation[1]}
-        inputName="password"
-        error={errors?.password?.message as string}
-      />
-      <span className={s.submitContainer}>
-        <p>
-          Don't have an account?{" "}
-          <span onClick={() => setShowLoginForm(false)}>click here</span> to
-          sign up
-        </p>
-        <input type="submit" value="Login" />
-      </span>
-    </form>
+    <>
+      <form onSubmit={handleSubmit(handleFormSubmit)} className={s.formStyling}>
+        <FormInput
+          inputType="email"
+          register={register}
+          registerName="username"
+          inputValidation={loginValidation[0]}
+          inputName="username"
+          error={errors?.username?.message as string}
+        />
+        <FormInput
+          inputType="password"
+          register={register}
+          registerName="password"
+          inputValidation={loginValidation[1]}
+          inputName="password"
+          error={errors?.password?.message as string}
+        />
+        <span className={s.submitContainer}>
+          <p>
+            Don't have an account?{" "}
+            <span onClick={() => setShowLoginForm(false)}>click here</span> to
+            sign up
+          </p>
+          <input type="submit" value="Login" />
+        </span>
+      </form>
+    </>
   );
 };
