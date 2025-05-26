@@ -1,3 +1,4 @@
+import type { CommentInterface } from "../auth/comment";
 import type { RecipeCreatorInterface } from "../auth/user";
 import type { CategoryInterface } from "../category/category";
 import type { CuisineInterface } from "../cuisine/cuisine";
@@ -44,7 +45,7 @@ export interface RecipeDetailsInterface {
   slug: string;
   tags: TagsInterface[] | TagsInterface;
   creator: RecipeCreatorInterface;
-  comments?: any;
+  comments: CommentInterface[];
   ingredients: IngredientInterface[];
   instructions: InstructionInterface[];
 }

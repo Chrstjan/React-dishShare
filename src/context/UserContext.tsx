@@ -24,7 +24,7 @@ export const UserContextProvider = ({
   };
 
   const logoutUser = () => {
-    if (!user) {
+    if (!user?.access_token || user.access_token.length === 0) {
       return;
     }
     setUser(null);

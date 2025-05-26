@@ -17,6 +17,12 @@ export interface UserInterface {
 export interface RecipeCreatorInterface {
   avatar: string;
   username: string;
+  id?: number;
+}
+
+export interface UserCommentsInterface {
+  comments: CommentInterface[] | CommentInterface;
+  recipe: RecipeInterface;
 }
 
 export interface UserDataInterface {

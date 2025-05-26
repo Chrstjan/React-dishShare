@@ -81,6 +81,20 @@ export const FormInput = ({
           {error && <p>{error}</p>}
         </>
       );
+    case "textarea":
+      return (
+        <>
+          <span className={s.inputContainers}>
+            <label htmlFor={inputName}>{inputName}</label>
+            <textarea
+              {...register(registerName, inputValidation)}
+              defaultValue={defaultValues?.[registerName]}
+              placeholder={inputPlaceholder || ""}
+            />
+          </span>
+          {error && <p>{error}</p>}
+        </>
+      );
   }
   return (
     <>
@@ -91,6 +105,7 @@ export const FormInput = ({
           {...register(registerName, inputValidation)}
           defaultValue={defaultValues?.[registerName]}
           placeholder={inputPlaceholder || ""}
+          accept=".jpg, .jpeg, .png"
         />
       </span>
       {error && <p>{error}</p>}

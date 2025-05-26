@@ -8,8 +8,6 @@ interface RecipeCardTagInterface {
 }
 
 export const RecipeCardTag = ({ data }: RecipeCardTagInterface) => {
-  console.log(data);
-
   return (
     <span className={s.recipeBarStyling}>
       <p>{data?.name}</p>

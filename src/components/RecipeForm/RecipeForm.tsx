@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useForm, type FieldValues } from "react-hook-form";
 import { Modal } from "../Modal/Modal";
-import { RecipeImageSelect } from "../RecipeImageSelect/RecipeImageSelect";
 import { ImagePreview } from "../ImagePreview/ImagePreview";
+import { ImageSelect } from "../ImageSelect/ImageSelect";
 import { recipeFields } from "../../lib/utils/recipe/createRecipe";
 import { FormInput } from "../FormInput/FormInput";
 import { IngredientInputList } from "../IngredientInputList/IngredientInputList";
@@ -46,7 +46,7 @@ export const RecipeForm = ({
       ) : null}
       {isModalOpen ? (
         <Modal setIsModalOpen={setIsModalOpen}>
-          <RecipeImageSelect
+          <ImageSelect
             control={control}
             setImagePreview={setImagePreview}
             setIsModalOpen={setIsModalOpen}

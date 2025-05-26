@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router";
 import s from "./RecipeCard.module.scss";
 import { deleteRecipe } from "../../lib/actions/recipe/deleteRecipe";
 interface RecipeCardInterface {
-  data: RecipeInterface[];
+  data: RecipeInterface[] | RecipeInterface;
   type?: string;
   canEdit?: boolean;
 }
@@ -16,7 +16,7 @@ export const RecipeCard = ({ data, type, canEdit }: RecipeCardInterface) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (data && data?.length > 0) {
+    if (data && Array.isArray(data) && data?.length > 0) {
       setRecipes(data);
     }
   }, [data]);

@@ -1,0 +1,9 @@
+@use "../../styles/placeholders";
+
+.formStyling {
+  @extend %userFormStyling;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  margin-bottom: 2rem;
+}

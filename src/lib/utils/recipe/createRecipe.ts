@@ -20,18 +20,18 @@ export const recipeFields = [
     },
   },
   {
-    inputType: "text",
+    inputType: "textarea",
     registerName: "description",
     inputName: "description",
     validation: {
       required: "Description is required",
       pattern: {
-        value: /^(?!.* {2,})[A-Za-z\d\s.,'!&()-]{12,300}$/,
+        value: /^(?!.* {2,})[A-Za-z\d\s.,'!&()-]{8,300}$/,
         message: "Invalid description format",
       },
       minLength: {
-        value: 12,
-        message: "Description must be at least 12 characters",
+        value: 8,
+        message: "Description must be at least 8 characters",
       },
       maxLength: {
         value: 300,

@@ -34,7 +34,10 @@ export const RecipeDetailsCard = ({
           <Link to="/">
             <Button text="<" type="recipeIcon" />
           </Link>
-          {user && user?.access_token && user?.access_token?.length > 0 ? (
+          {user &&
+          user?.access_token &&
+          user?.access_token?.length > 0 &&
+          user?.user?.id !== data?.creator?.id ? (
             <Button
               text="Favorite"
               action={() => handleFavoriteRecipe()}

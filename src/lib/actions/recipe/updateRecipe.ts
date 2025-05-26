@@ -37,9 +37,6 @@ export const updateRecipe = async (
     rating: 0,
   };
 
-  console.log(data);
-  console.log(formData);
-
   const resp = await fetch(`${import.meta.env.VITE_API_URL}/recipes/${id}`, {
     method: "PATCH",
     headers: {

@@ -1,0 +1,30 @@
+@use "../../styles/mixins" as m;
+@use "../../styles/variables" as *;
+@use "../../styles/placeholders";
+
+.commentContainer {
+  @include m.flexBox(column, center, center, 1rem);
+  width: 100%;
+  .commentStyling {
+    padding-left: 1rem;
+    backdrop-filter: blur(12px);
+    border: 1px solid #ffffff6c;
+    box-shadow: 0 0 10px #805ad566;
+    border-radius: 12px;
+    width: 80%;
+
+    .userContainer {
+      @include m.flexBox(row-reverse, flex-end, center, 0.5rem);
+      img {
+        width: 10vw;
+        border-radius: 50%;
+      }
+    }
+
+    header {
+      h4 {
+        margin-top: 0;
+      }
+    }
+  }
+}

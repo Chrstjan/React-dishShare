@@ -1,4 +1,9 @@
 .previewStyling {
   display: block;
   width: 100%;
+
+  &.avatar {
+    width: 30vw;
+    border-radius: 50%;
+  }
 }
