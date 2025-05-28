@@ -24,17 +24,13 @@ export const LoginForm = ({
   const navigate = useNavigate();
 
   const handleFormSubmit = async (data: FieldValues) => {
-    try {
-      const res = await login(data);
+    const res = await login(data);
 
-      if (res?.access_token && res?.access_token?.length > 0) {
-        loginUser(res);
-        navigate("/profile");
-      }
-    } catch (err: unknown | Error) {
-      if (err instanceof Error) {
-        console.error(`Error in login request: ${err.message}: ${err}`);
-      }
+    if (res?.access_token && res?.access_token?.length > 0) {
+      loginUser(res);
+      navigate("/profile");
+    } else {
+      console.log(res);
     }
   };
 

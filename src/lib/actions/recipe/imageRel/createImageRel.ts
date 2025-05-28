@@ -1,3 +1,4 @@
+import { toast } from "react-toastify";
 import type { UserInterface } from "../../../types/auth/user";
 
 export const createImageRel = async (
@@ -19,5 +20,13 @@ export const createImageRel = async (
     body: JSON.stringify(formData),
   });
 
-  return resp;
+  const data = await resp.json();
+
+  if (resp.ok) {
+    toast.success(data?.message || "Image added to recipe");
+  } else {
+    toast.error(data.message || "Failed to add image to recipe");
+  }
+
+  return data;
 };

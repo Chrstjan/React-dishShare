@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { UserContext } from "../../context/UserContext";
 import { useForm, type FieldValues } from "react-hook-form";
 import { Modal } from "../Modal/Modal";
 import { ImagePreview } from "../ImagePreview/ImagePreview";
@@ -7,11 +8,12 @@ import { recipeFields } from "../../lib/utils/recipe/createRecipe";
 import { FormInput } from "../FormInput/FormInput";
 import { IngredientInputList } from "../IngredientInputList/IngredientInputList";
 import { InstructionInputList } from "../InstructionInputList/InstructionInputList";
+import { deleteImageRel } from "../../lib/actions/recipe/imageRel/deleteImageRel";
 import s from "./RecipeForm.module.scss";
 
 type RecipeFormType = {
   defaultValues?: FieldValues;
-  submitType: (data: FieldValues) => void;
+  submitType: (data: FieldValues) => Promise<any>;
   message: string;
 };
 
@@ -20,11 +22,13 @@ export const RecipeForm = ({
   submitType,
   message,
 }: RecipeFormType) => {
+  const { user } = useContext(UserContext);
   const {
     register,
     handleSubmit,
     control,
     formState: { errors },
+    reset,
   } = useForm({
     mode: "all",
     defaultValues: defaultValues,
@@ -35,12 +39,40 @@ export const RecipeForm = ({
 
   useEffect(() => {
     if (defaultValues && defaultValues?.images?.length > 0) {
+      console.log(defaultValues);
+
       setImagePreview(defaultValues?.images[0]?.image?.filename);
     }
   }, [defaultValues]);
 
+  const handleRemoveImage = async () => {
+    if (defaultValues && defaultValues?.images) {
+      const res = await deleteImageRel(
+        defaultValues?.images[0]?.id,
+        defaultValues?.id,
+        user
+      );
+
+      console.log(res);
+      setImagePreview("");
+    }
+  };
+
+  const onSubmit = async (data: FieldValues) => {
+    try {
+      const res = await submitType(data);
+      if (
+        res.message == "201" ||
+        res.data == "201" ||
+        res.message == "Recipe updated successfully"
+      ) {
+        reset();
+      }
+    } catch {}
+  };
+
   return (
-    <form onSubmit={handleSubmit(submitType)} className={s.formStyling}>
+    <form onSubmit={handleSubmit(onSubmit)} className={s.formStyling}>
       {imagePreview?.length < 1 ? (
         <span onClick={() => setIsModalOpen((prev) => !prev)}>Add Image</span>
       ) : null}
@@ -56,7 +88,7 @@ export const RecipeForm = ({
       {imagePreview?.length > 0 ? (
         <>
           <ImagePreview image={imagePreview} />
-          <span onClick={() => setImagePreview("")}>Remove Image</span>
+          <span onClick={() => handleRemoveImage()}>Remove Image</span>
         </>
       ) : null}
 

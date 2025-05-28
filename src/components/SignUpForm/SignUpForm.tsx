@@ -14,6 +14,7 @@ export const SignUpForm = ({
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm({
     mode: "all",
   });
@@ -22,21 +23,10 @@ export const SignUpForm = ({
     try {
       const res = await signUp(data);
 
-      if (!res.ok) {
-        console.error(res);
-        throw new Error("Error in sign up with credentials");
+      if (res.message == "Account created successfully") {
+        reset();
       }
-
-      const userData = await res.json();
-
-      if (userData) {
-        console.log("Sign up successfull", userData);
-      }
-    } catch (err: unknown | Error) {
-      if (err instanceof Error) {
-        console.error(`Error in sign up request: ${err.message}: ${err}`);
-      }
-    }
+    } catch {}
   };
 
   return (

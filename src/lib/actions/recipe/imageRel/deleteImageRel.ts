@@ -1,13 +1,13 @@
 import { toast } from "react-toastify";
 import type { UserInterface } from "../../../types/auth/user";
 
-export const deleteIngredient = async (
-  id: number,
+export const deleteImageRel = async (
+  relId: number,
   recipeId: number,
   user: UserInterface | null
 ) => {
   const resp = await fetch(
-    `${import.meta.env.VITE_API_URL}/ingredient/${recipeId}/${id}`,
+    `${import.meta.env.VITE_API_URL}/recipe-images/${recipeId}/${relId}`,
     {
       method: "DELETE",
       headers: {
@@ -20,10 +20,9 @@ export const deleteIngredient = async (
   const data = await resp.json();
 
   if (resp.ok) {
-    toast.success(data?.message || "Ingredient removed from recipe");
+    toast.success(data?.message || "Image removed from recipe");
   } else {
-    toast.error(data.message || "Failed to remove ingredient from recipe");
+    toast.error(data.message || "Failed to remove image from recipe");
   }
-
   return data;
 };

@@ -1,5 +1,6 @@
 import type { FieldValues } from "react-hook-form";
 import type { UserInterface } from "../../types/auth/user";
+import { toast } from "react-toastify";
 
 export const updateUser = async (
   data: FieldValues,
@@ -23,9 +24,13 @@ export const updateUser = async (
     body: JSON.stringify(formData),
   });
 
-  const updateData = await resp.json();
+  const userData = await resp.json();
 
-  console.log(updateData);
+  if (resp.ok) {
+    toast.success(userData.message || "User updated");
+  } else {
+    toast.error(userData.message || "Failed to update user");
+  }
 
-  return updateData;
+  return userData;
 };

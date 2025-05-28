@@ -67,6 +67,7 @@ export const IngredientInputList = ({
                 inputName="ingredient name"
                 inputValidation={listValidation[0]}
                 error={errors?.name?.message as string}
+                defaultValues={defaultValues}
               />
               <FormInput
                 key={index || item?.id}
@@ -76,6 +77,7 @@ export const IngredientInputList = ({
                 inputName="ingredient amount"
                 inputValidation={listValidation[1]}
                 error={errors?.amount?.message as string}
+                defaultValues={defaultValues}
               />
               <p
                 onClick={() => {

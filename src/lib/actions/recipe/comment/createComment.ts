@@ -1,5 +1,6 @@
 import type { FieldValues } from "react-hook-form";
 import type { UserInterface } from "../../../types/auth/user";
+import { toast } from "react-toastify";
 
 export const createComment = async (
   data: FieldValues,
@@ -25,6 +26,11 @@ export const createComment = async (
 
   const commentData = await resp.json();
 
-  console.log(commentData);
+  if (resp.ok) {
+    toast.success(commentData.message || "Comment created");
+  } else {
+    toast.error(commentData.message || "Failed to create comment");
+  }
+
   return commentData;
 };

@@ -67,6 +67,7 @@ export const InstructionInputList = ({
                 inputName="step"
                 inputValidation={listValidation[2]}
                 error={errors?.step?.message as string}
+                defaultValues={defaultValues}
               />
               <p
                 onClick={() => {

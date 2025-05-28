@@ -10,9 +10,9 @@ export const submitRecipe = async (
   user: UserInterface | null
 ) => {
   const res = await CreateRecipe(data, user);
-  const recipeData = await res.json();
+  const recipeData = res;
 
-  if (!res.ok || !recipeData?.data?.id) {
+  if (!recipeData?.data?.id) {
     throw new Error("Failed to create recipe");
   }
 

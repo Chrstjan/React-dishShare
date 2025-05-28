@@ -13,14 +13,14 @@ export const submitRecipeUpdate = async (
   user: UserInterface | null
 ) => {
   const res = await updateRecipe(data, recipeId, user);
-  const recipeData = await res;
+  const recipeData = res;
 
   if (!recipeData?.data) {
     throw new Error("Error in updating recipe");
   }
 
   if (recipeData && recipeData?.message == "Recipe updated successfully") {
-    if (Array.isArray(data?.images)) {
+    if (Array.isArray(data?.images) && data?.images[0]?.id) {
       const relId = data?.images[0]?.id;
       await updateImageRel(relId, data?.images[0]?.image?.id, recipeId, user);
     }

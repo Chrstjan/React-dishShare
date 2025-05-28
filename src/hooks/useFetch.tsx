@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 
 export const useFetch = <T = unknown,>(url: string, options = {}) => {
-  const { data, isLoading, error } = useQuery<T, Error>({
+  const { data, isLoading, error, refetch } = useQuery<T, Error>({
     queryKey: [url, options],
     queryFn: async (): Promise<T> => {
       try {
@@ -25,5 +25,5 @@ export const useFetch = <T = unknown,>(url: string, options = {}) => {
     enabled: !!url,
   });
 
-  return { data, isLoading, error };
+  return { data, isLoading, error, refetch };
 };

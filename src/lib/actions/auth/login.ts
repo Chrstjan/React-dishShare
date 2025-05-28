@@ -1,4 +1,5 @@
 import type { FieldValues } from "react-hook-form";
+import { toast } from "react-toastify";
 
 export const login = async (data: FieldValues) => {
   const { username, password } = { ...data };
@@ -17,5 +18,12 @@ export const login = async (data: FieldValues) => {
   });
 
   const userData = await resp.json();
+
+  if (resp.ok) {
+    toast.success("Login successfull");
+  } else {
+    toast.error("Failed to login user, try again");
+  }
+
   return userData;
 };

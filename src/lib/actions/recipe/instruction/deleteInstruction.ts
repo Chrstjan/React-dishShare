@@ -1,3 +1,4 @@
+import { toast } from "react-toastify";
 import type { UserInterface } from "../../../types/auth/user";
 
 export const deleteInstruction = async (
@@ -16,5 +17,13 @@ export const deleteInstruction = async (
     }
   );
 
-  return resp;
+  const data = await resp.json();
+
+  if (resp.ok) {
+    toast.success(data?.message || "Instruction removed from recipe");
+  } else {
+    toast.error(data.message || "Failed to remove instruction from recipe");
+  }
+
+  return data;
 };

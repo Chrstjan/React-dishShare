@@ -1,3 +1,4 @@
+import { toast } from "react-toastify";
 import type { UserInterface } from "../../../types/auth/user";
 
 export const createFavorite = async (
@@ -15,8 +16,13 @@ export const createFavorite = async (
     }
   );
 
-  const favoriteData = await resp.json();
+  const data = await resp.json();
 
-  console.log(favoriteData);
-  return favoriteData;
+  if (resp.ok) {
+    toast.success(data.message || "Favorite created");
+  } else {
+    toast.error(data.message || "Failed to create favorite");
+  }
+
+  return data;
 };

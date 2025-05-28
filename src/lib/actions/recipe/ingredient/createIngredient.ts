@@ -1,3 +1,4 @@
+import { toast } from "react-toastify";
 import type { UserInterface } from "../../../types/auth/user";
 
 export const createIngredient = async (
@@ -20,5 +21,13 @@ export const createIngredient = async (
     body: JSON.stringify(formData),
   });
 
-  return resp;
+  const data = await resp.json();
+
+  if (resp.ok) {
+    toast.success("Ingredient(s) added to recipe");
+  } else {
+    toast.error(data.message || "Failed to add ingredient(s) to recipe");
+  }
+
+  return data;
 };

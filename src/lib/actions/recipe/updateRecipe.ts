@@ -1,5 +1,6 @@
 import type { FieldValues } from "react-hook-form";
 import type { UserInterface } from "../../types/auth/user";
+import { toast } from "react-toastify";
 
 export const updateRecipe = async (
   data: FieldValues,
@@ -22,6 +23,7 @@ export const updateRecipe = async (
   } = { ...data };
 
   const formData = {
+    id: id,
     name: name,
     description: description,
     category_id: category.id,
@@ -37,7 +39,7 @@ export const updateRecipe = async (
     rating: 0,
   };
 
-  const resp = await fetch(`${import.meta.env.VITE_API_URL}/recipes/${id}`, {
+  const resp = await fetch(`${import.meta.env.VITE_API_URL}/recipes`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
@@ -46,9 +48,13 @@ export const updateRecipe = async (
     body: JSON.stringify(formData),
   });
 
-  const updateData = await resp.json();
+  const recipeData = await resp.json();
 
-  console.log(updateData);
+  if (resp.ok) {
+    toast.success(recipeData?.message || "Recipe updated");
+  } else {
+    toast.error(recipeData.message || "Failed to update recipe");
+  }
 
-  return updateData;
+  return recipeData;
 };

@@ -1,3 +1,4 @@
+import { toast } from "react-toastify";
 import type { UserInterface } from "../../../types/auth/user";
 
 export const deleteComment = async (id: number, user: UserInterface | null) => {
@@ -11,6 +12,11 @@ export const deleteComment = async (id: number, user: UserInterface | null) => {
 
   const commentData = await resp.json();
 
-  console.log(commentData);
+  if (resp.ok) {
+    toast.success(commentData.message || "Comment deleted");
+  } else {
+    toast.error(commentData.message || "Failed to delete comment");
+  }
+
   return commentData;
 };

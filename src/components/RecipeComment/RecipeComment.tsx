@@ -23,7 +23,8 @@ export const RecipeComment = ({
 
   useEffect(() => {
     if (data) {
-      setComments(data);
+      console.log(data);
+      setComments(Array.isArray(data) ? data : [data]);
     }
   }, [data]);
 
@@ -36,7 +37,7 @@ export const RecipeComment = ({
       comments &&
       Array.isArray(comments)
     ) {
-      setComments(comments.filter((item) => item.recipe_id !== id));
+      setComments(comments.filter((item) => item.id !== id));
     } else if (
       res.data == "Comment deleted successfully" &&
       !Array.isArray(comments) &&

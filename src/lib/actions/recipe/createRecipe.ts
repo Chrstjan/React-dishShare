@@ -1,5 +1,6 @@
 import type { FieldValues } from "react-hook-form";
 import type { UserInterface } from "../../types/auth/user";
+import { toast } from "react-toastify";
 
 export const CreateRecipe = async (
   data: FieldValues,
@@ -36,9 +37,6 @@ export const CreateRecipe = async (
     rating: 0,
   };
 
-  console.log(data);
-  console.log(formData);
-
   const resp = await fetch(`${import.meta.env.VITE_API_URL}/recipes`, {
     method: "POST",
     headers: {
@@ -48,5 +46,13 @@ export const CreateRecipe = async (
     body: JSON.stringify(formData),
   });
 
-  return resp;
+  const recipeData = await resp.json();
+
+  if (resp.ok) {
+    toast.success("Recipe created");
+  } else {
+    toast.error(recipeData.message || "Failed to create recipe");
+  }
+
+  return recipeData;
 };

@@ -9,7 +9,7 @@ import { signUpValidation } from "../../lib/utils/auth/signUpValidation";
 
 type UserFormType = {
   defaultValues?: FieldValues;
-  submitType: (data: FieldValues) => void;
+  submitType: (data: FieldValues) => Promise<any>;
 };
 
 export const UserForm = ({ defaultValues, submitType }: UserFormType) => {
@@ -22,6 +22,7 @@ export const UserForm = ({ defaultValues, submitType }: UserFormType) => {
     control,
     setValue,
     formState: { errors },
+    reset,
   } = useForm({
     mode: "all",
     defaultValues: defaultValues,
@@ -33,8 +34,18 @@ export const UserForm = ({ defaultValues, submitType }: UserFormType) => {
     }
   }, [defaultValues]);
 
+  const onSubmit = async (data: FieldValues) => {
+    try {
+      const res = await submitType(data);
+
+      if (res.message == "User updated successfully") {
+        reset();
+      }
+    } catch {}
+  };
+
   return (
-    <form onSubmit={handleSubmit(submitType)} className={s.formStyling}>
+    <form onSubmit={handleSubmit(onSubmit)} className={s.formStyling}>
       <ImagePreview
         image={
           imagePreview && imagePreview?.length > 1

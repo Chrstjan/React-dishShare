@@ -29,9 +29,7 @@ export const RecipeCard = ({ data, type, canEdit }: RecipeCardInterface) => {
     if (id) {
       const res = await deleteRecipe(id, user);
 
-      const data = await res.json();
-
-      if (data?.message == "Success") {
+      if (res?.message == "Success") {
         setRecipes((prev) => [...prev.filter((item) => item.id !== id)]);
       }
     }

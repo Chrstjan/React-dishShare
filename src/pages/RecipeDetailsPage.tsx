@@ -18,6 +18,7 @@ export const RecipeDetailsPage = () => {
     data: recipeData,
     isLoading,
     error,
+    refetch,
   } = useFetch<DataInterface<RecipeDetailsInterface>>(
     `https://dishshare.up.railway.app/recipes/${slug}`
   );
@@ -40,6 +41,7 @@ export const RecipeDetailsPage = () => {
             submitType={(data) =>
               createComment(data, recipeData?.data?.id, user)
             }
+            onSuccess={refetch}
           />
         ) : null}
         {recipeData && recipeData?.data && !isLoading && !error ? (

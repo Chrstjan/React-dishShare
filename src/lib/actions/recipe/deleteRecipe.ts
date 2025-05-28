@@ -1,3 +1,4 @@
+import { toast } from "react-toastify";
 import type { UserInterface } from "../../types/auth/user";
 
 export const deleteRecipe = async (id: number, user?: UserInterface | null) => {
@@ -11,10 +12,13 @@ export const deleteRecipe = async (id: number, user?: UserInterface | null) => {
     },
   });
 
-  if (!resp.ok) {
-    const errorData = await resp.json();
-    console.error(errorData);
+  const recipeData = await resp.json();
+
+  if (resp.ok) {
+    toast.success(recipeData?.message || "Recipe deleted");
+  } else {
+    toast.error(recipeData.message || "Failed to delete recipe");
   }
 
-  return resp;
+  return recipeData;
 };
