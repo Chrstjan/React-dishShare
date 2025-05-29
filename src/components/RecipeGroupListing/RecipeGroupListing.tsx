@@ -17,6 +17,7 @@ interface RecipeGroupListingInterface {
   >;
   type?: string;
   defaultUrl?: string;
+  slug?: string;
   setGroupRecipes: Dispatch<SetStateAction<RecipeInterface[] | undefined>>;
 }
 
@@ -25,11 +26,12 @@ export const RecipeGroupListing = ({
   data,
   type,
   defaultUrl,
+  slug,
   setGroupRecipes,
 }: RecipeGroupListingInterface) => {
   useEffect(() => {
-    if (defaultUrl && defaultUrl.length > 0) {
-      handleListingClick("category", "dinner");
+    if (defaultUrl && defaultUrl.length > 0 && slug && slug?.length > 0) {
+      handleListingClick(group, slug);
     }
   }, [defaultUrl]);
 
@@ -38,6 +40,7 @@ export const RecipeGroupListing = ({
 
     switch (group) {
       case "category":
+      case "categories":
         url = `categories/${slug}`;
         break;
       case "cuisine":
@@ -47,7 +50,8 @@ export const RecipeGroupListing = ({
         url = `difficulty/${slug}`;
         break;
       case "tag":
-        url = `tag/${slug}`;
+      case "tags":
+        url = `tags/${slug}`;
         break;
       default:
         url = "";
@@ -65,8 +69,13 @@ export const RecipeGroupListing = ({
         }
 
         const data = await res.json();
+        console.log(data);
         if (data && data?.data?.recipes) {
           setGroupRecipes(data?.data?.recipes);
+        } else if (data && data?.data && data?.data?.tags?.recipe) {
+          console.log(data?.data?.tags?.recipe);
+
+          setGroupRecipes([data?.data?.tags?.recipe]);
         }
       } catch (err: unknown | Error) {
         if (err instanceof Error) {

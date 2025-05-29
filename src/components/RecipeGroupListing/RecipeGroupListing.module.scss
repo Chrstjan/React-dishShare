@@ -4,6 +4,8 @@
 
 .listingContainer {
   width: 100%;
+  margin-left: 3rem;
+  margin-right: 1.8rem;
   overflow-x: auto;
   .listingStyling {
     @include m.flexBox(row, flex-start, center, 1rem);

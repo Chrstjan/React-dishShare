@@ -56,7 +56,7 @@ export const LandingPage = () => {
           <FeaturedUserRecipe user={user} />
         </Wrapper>
       ) : null}
-      <Wrapper type="listingWrapper" sectionHeader headerText="Meal Category">
+      <Wrapper sectionHeader headerText="Meal Category">
         {categoryData &&
         categoryData?.data?.length > 0 &&
         !categoryLoading &&
@@ -64,8 +64,9 @@ export const LandingPage = () => {
           <RecipeGroupListing
             group="category"
             data={categoryData}
-            defaultUrl="https://dishshare.up.railway.app/categories/dinner"
             setGroupRecipes={setCategoryRecipes}
+            defaultUrl="https://dishshare.up.railway.app/categories/dinner"
+            slug="dinner"
           />
         ) : null}
       </Wrapper>

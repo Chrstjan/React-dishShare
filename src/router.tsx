@@ -12,6 +12,7 @@ import { FavoritesPage } from "./pages/FavoritesPage";
 import { CreatePage } from "./pages/CreatePage";
 import { LoginPage } from "./pages/LoginPage";
 import { EditPage } from "./pages/EditPage";
+import { GroupPage } from "./pages/GroupPage";
 
 export const Router = createBrowserRouter([
   {
@@ -24,6 +25,10 @@ export const Router = createBrowserRouter([
       {
         path: "/discover",
         Component: DiscoverPage,
+      },
+      {
+        path: "/discover/:endpoint/:slug",
+        Component: GroupPage,
       },
       {
         path: "/login",

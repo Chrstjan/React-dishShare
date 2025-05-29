@@ -6,6 +6,7 @@ import { updateIngredient } from "../actions/recipe/ingredient/updateIngredient"
 import { updateInstruction } from "../actions/recipe/instruction/updateInstruction";
 import { createIngredient } from "../actions/recipe/ingredient/createIngredient";
 import { createInstruction } from "../actions/recipe/instruction/createInstruction";
+import { createImageRel } from "../actions/recipe/imageRel/createImageRel";
 
 export const submitRecipeUpdate = async (
   data: FieldValues,
@@ -20,9 +21,15 @@ export const submitRecipeUpdate = async (
   }
 
   if (recipeData && recipeData?.message == "Recipe updated successfully") {
-    if (Array.isArray(data?.images) && data?.images[0]?.id) {
+    if (Array.isArray(data?.images)) {
       const relId = data?.images[0]?.id;
-      await updateImageRel(relId, data?.images[0]?.image?.id, recipeId, user);
+      //If the recipe has an image update the image to the selected
+      // Else create a new image rel for the recipe with the selected image
+      if (relId) {
+        await updateImageRel(relId, data?.images[0]?.image?.id, recipeId, user);
+      } else {
+        await createImageRel(data?.image[0]?.image_id, recipeId, user);
+      }
     }
 
     for (const item of data?.ingredients || []) {

@@ -35,16 +35,16 @@ export const ImageSelect = ({
     }
   );
 
+  const { append } = useFieldArray({
+    control,
+    name: "image",
+  });
+
   const handleImageSelect = (image: ImageInterface) => {
     console.log(image);
     if (setValue && image && image?.filename?.length > 0) {
       setValue("avatar", image.filename);
     } else {
-      const { append } = useFieldArray({
-        control,
-        name: "image",
-      });
-
       append({ image_id: image?.id, filename: image?.filename });
     }
     setImagePreview(

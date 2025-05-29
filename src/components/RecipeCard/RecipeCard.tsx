@@ -19,6 +19,7 @@ export const RecipeCard = ({ data, type, canEdit }: RecipeCardInterface) => {
     if (data && Array.isArray(data) && data?.length > 0) {
       setRecipes(data);
     }
+    console.log(data);
   }, [data]);
 
   const handleCardClick = async (slug: string) => {

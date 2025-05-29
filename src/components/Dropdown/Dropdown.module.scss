@@ -1,0 +1,44 @@
+@use "../../styles/mixins" as m;
+@use "../../styles/variables" as *;
+@use "../../styles/placeholders";
+
+.dropdownContainer {
+  ul {
+    @include m.flexBox(row, space-between, center, 1rem);
+    padding: 0;
+  }
+
+  .listingContainer {
+    @include m.flexBox(column, center, center, 0.5rem);
+    position: relative;
+    li {
+      list-style: none;
+      font-size: 18px;
+    }
+
+    span {
+      @include m.flexBox(column, center, flex-start, 0.3rem);
+      position: absolute;
+      top: calc(100% + 0.5rem); // adds spacing below the main li
+      left: 50%;
+      transform: translateX(-50%); // center dropdown below li
+      z-index: 10;
+      padding: 0.5rem 1rem;
+      background: #1c1c1c;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      min-width: max-content; // fits longest item
+      max-height: 50vh; // for long lists
+      overflow-y: auto;
+
+      a {
+        color: $white;
+        text-decoration: none;
+
+        li {
+          font-size: 16px;
+        }
+      }
+    }
+  }
+}
